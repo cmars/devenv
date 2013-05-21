@@ -1,0 +1,9 @@
+---
+- hosts: devhosts
+  user: ${devuser}
+  sudo: yes
+  tasks:
+  - name: Update packages
+    action: shell apt-get update
+  - name: Install Java JDK
+    action: shell DEBIAN_FRONTEND=noninteractive apt-get -y install openjdk-7-jdk

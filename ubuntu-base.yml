@@ -1,0 +1,9 @@
+---
+- hosts: devhosts
+  user: ${devuser}
+  sudo: yes
+  tasks:
+  - name: Update packages
+    action: shell apt-get update
+  - name: Install basic stuff to build
+    action: shell DEBIAN_FRONTEND=noninteractive apt-get -y install devscripts bikeshed build-essential byobu tmux vim-nox git bzr mercurial

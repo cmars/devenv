@@ -1,0 +1,18 @@
+---
+- hosts: devhosts
+  user: ${devuser}
+  tasks:
+  - action: shell echo "$HOME"
+    register: home_dir
+  - name: Reset vim configuration
+    action: shell rm -rf ~/.vim; mkdir -p ~/.vim/bundle ~/.vim/syntax ~/.vim/ftdetect
+  - name: Download vundle
+    action: shell git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+  - name: Install vimrc
+    action: copy src=vimrc dest="${home_dir.stdout}/.vimrc"
+  - name: Install vundles
+    action: shell vim +BundleInstall +qall
+  - name: Setup golang syntax
+    action: shell ln -s $GOROOT/misc/vim/syntax/go.vim ~/.vim/syntax
+  - name: Setup golang filetype detection
+    action: copy src=go.vim dest=~/.vim/ftdetect/go.vim
