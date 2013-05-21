@@ -45,7 +45,7 @@ Bundle 'FuzzyFinder'
 set rtp+=$GOROOT/misc/vim
 autocmd BufWritePost *.go :silent Fmt
 
-filetype plugin indent on     " required!
+filetype plugin on     " required!
 "
 " Brief help
 " :BundleList          - list configured bundles
