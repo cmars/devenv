@@ -1,0 +1,16 @@
+---
+- hosts: devhosts
+  user: ${devuser}
+  tasks:
+  - action: shell echo "$HOME"
+    register: home_dir
+  - name: Create user local
+    action: shell mkdir -p $HOME/local
+  - name: Ensure Go not installed
+    action: shell [ ! -d $HOME/local/go ]
+  - name: Checkout Go sources
+    action: shell cd $HOME/local; hg clone -u release https://code.google.com/p/go
+  - name: Build Go from sources
+    action: shell cd $HOME/local/go/src; ./all.bash
+  - name: Install Go language profile
+    action: copy src=.profile.d/golang.sh dest=~/.profile.d/golang.sh
